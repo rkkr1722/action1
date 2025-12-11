@@ -18,9 +18,5 @@ jobs:
               ls -la
               cat README.md
           
-          - name: install cowsay
-            run: sudo apt-get install cowsay
           
-          - name: Generate ASCII artwork
-            run: cowsay -f dragon "Run for Cover" >> dragon.txt
         
