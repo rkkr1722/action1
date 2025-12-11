@@ -1,5 +1,4 @@
 name: Generate ASCII
-
 on: [push]
 
 jobs:
@@ -15,10 +14,9 @@ jobs:
           - name: Generate ASCII artwork
             run: cowsay -f dragon "Run for Cover" >> dragon.txt
 
-          - run: echo "some text"
-
-          - run: grep dragon dragon.txt
-
-          - run: cat dragon.txt
+          - run: |
+              echo "some text"
+              grep -i "dragon" dragon.txt
+              cat dragon.txt
       
         
