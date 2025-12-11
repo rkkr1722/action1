@@ -12,11 +12,12 @@ jobs:
             run: sudo apt-get install cowsay
 
           - name: Generate ASCII artwork
-            run: cowsay -f dragon "Run for Cover" >> dragon.txt
+            run: cowsay -f dragon "Run for Cover, I'm a dragon...RAWR" >> dragon.txt
 
           - run: |
               echo "some text"
-              grep -i "dragon" dragon.txt
               cat dragon.txt
+              grep -i "dragon" dragon.txt
+              
       
         
