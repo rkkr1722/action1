@@ -16,7 +16,8 @@ jobs:
             run: cowsay -f dragon "Run for Cover" >> dragon.txt
 
           - run: |
-              grep -i gragon dragon.txt
+              echo "some text"
+              cat dragon.txt |grep -i dragon 
               cat dragon.txt
       
         
