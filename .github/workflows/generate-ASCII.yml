@@ -8,7 +8,7 @@ jobs:
           - name: checkout Repo
             uses: actions/checkout@v6        
 
-          - name: install cowsay
+          - name: list files
             run: ls -la
 
           - name: Executing a shell script
