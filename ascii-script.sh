@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo apt get install cowsay
+sudo apt-get install cowsay
 ls -la
 sleep 5
 cowsay -f dragon "Run for Cover, I'm a dragon...RAWR" >> dragon.txt
