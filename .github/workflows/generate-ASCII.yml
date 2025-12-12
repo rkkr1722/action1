@@ -42,7 +42,7 @@ jobs:
       run: cat dragon.txt
 
     - name: deploy job.
-      run: echo "deploying...""
+      run: echo "deploying..."
 
     # job-1:
     #     runs-on: ubuntu-latest
