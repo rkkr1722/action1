@@ -1,0 +1,113 @@
+name: Exploring Variables and Secrets
+on: push
+env:
+    CONTAINER_REGISTRY: docker.io
+    DOCKER_USERNAME: dockerUsername
+    IMAGE_NAME: github-action-nginx
+jobs:
+    docker:        
+        runs-on: ubuntu-latest
+        steps:
+        - name: Docker build
+          run: echo docker build -t ${{env.CONTAINER_REGISTRY}}/$DOCKER_USERNAME/IMAGE_NAME:latest
+          
+        - name: Docker login
+          env:
+            DOCKER_PASS: s3cUrePaSsw0rd
+          run: echo docker login --username=$DOCKER_USER --password=$DOCKER_PASS
+
+        - name: Docker publish
+          run: echo docker push $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME:latest
+
+    deploy:
+        needs: docker        
+        runs-on: ubuntu-latest
+        steps:
+        - name: Docker run
+          run: echo docker run -d -p 8080:80 $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME:latest
+
+
+##################### Environment variable at Job levels #################          
+    # docker:
+    #     env:
+    #         CONTAINER_REGISTRY: docker.io
+    #         DOCKER_USERNAME: dockerUsername
+    #         IMAGE_NAME: github-action-nginx
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #     - name: Docker build
+    #       run: echo docker build -t $CONTAINER_REGISTRY/$DOCKER_USERNAME/IMAGE_NAME:latest
+          
+    #     - name: Docker login
+    #       env:
+    #         DOCKER_PASS: s3cUrePaSsw0rd
+    #       run: echo docker login --username=$DOCKER_USER --password=$DOCKER_PASS
+        
+    #     - name: Docker publish
+    #       run: echo docker push $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME:latest
+
+    # deploy:
+    #     needs: docker
+    #     env:
+    #         CONTAINER_REGISTRY: docker.io
+    #         DOCKER_USERNAME: dockerUsername
+    #         IMAGE_NAME: github-action-nginx
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #     - name: Docker run
+    #       run: echo docker run -d -p 8080:80 $CONTAINER_REGISTRY/$DOCKER_USERNAME/$IMAGE_NAME:latest
+
+##################### Environment variable at STEP levels #################
+    # docker:
+    #     runs-on: ubuntu-latest
+    #     steps:
+        #  - name: Docker build
+        #   env:
+        #     CONTAINER_REGISTRY: docker.io
+        #     DOCKER_USERNAME: dockerUsername
+        #     IMAGE_NAME: github-action-nginx
+        #    run: echo docker build -t $CONTAINER_REGISTRY/$DOCKER_USERNAME/IMAGE_NAME:latest
+          
+    #     - name: Docker login
+    #       env:
+    #         DOCKER_PASS: s3cUrePaSsw0rd
+    #         DOCKER_USER: dockerUsername
+    #       run: echo docker login --username=$DOCKER_USER --password=$DOCKER_PASS
+        
+    #     - name: Docker publish
+    #       env:
+    #         CONTAINER_REGISTRY: docker.io
+    #         DOCKER_USERNAME: dockerUsername
+    #         IMAGE_NAME: github-action-nginx          
+    #       run: echo docker push $CONTAINER_REGISTRY/$DOCKER_USERNAME/IMAGE_NAME:latest
+
+    # deploy:
+    #     needs: docker
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #     - name: Docker run
+    #       env:
+    #         CONTAINER_REGISTRY: docker.io
+    #         DOCKER_USERNAME: dockerUsername
+    #         IMAGE_NAME: github-action-nginx          
+    #       run: echo docker run -d -p 8080:80 $CONTAINER_REGISTRY/$DOCKER_USERNAME/IMAGE_NAME:latest
+
+##################### sample jobs #################
+    # docker:
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #     - name: Docker build
+    #       run: echo docker build -t docker.io/dockerUsername/imageName:latest
+          
+    #     - name: Docker login
+    #       run: echo docker login --username=dockerUsername --password=s3cUrePaSsw0rd
+        
+    #     - name: Docker publish
+    #       run: echo docker push docker.io/dockerUsername/imageName:latest
+
+    # deploy:
+    #     needs: docker
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #     - name: Docker run
+    #       run: echo docker run -d -p 8080:80 docker.io/dockerUsername/imageName:latest
