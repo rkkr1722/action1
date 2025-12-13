@@ -1,7 +1,7 @@
 name: Exploring Variables and Secrets
 on: push
 env:
-    CONTAINER_REGISTRY: docker.io
+    #CONTAINER_REGISTRY: docker.io
     DOCKER_USERNAME: dockerUsername
     IMAGE_NAME: github-action-nginx
 jobs:
@@ -13,7 +13,7 @@ jobs:
           
         - name: Docker login
           env:
-            DOCKER_PASS: s3cUrePaSsw0rd
+            #DOCKER_PASS: s3cUrePaSsw0rd
           run: echo docker login --username=$DOCKER_USER --password=$DOCKER_PASS
 
         - name: Docker publish
