@@ -6,14 +6,14 @@ jobs:
     deploy:
         strategy:
             matrix:
-                os: [ ubuntu-latest, ubuntu-20.04, windows-latest]
+                os: [ ubuntu-latest, windows-latest]
                 images: [ hello-world, alpine]
                 exclude:
                     - images: alpine
                       os: windows-latest
                 include:
-                    - images: nginx:alpine-slim
-                      os: ubuntu-latest
+                    - images: alpine
+                      os: ubuntu-20.04
             
         runs-on: ${{matrix.os}}
         steps:
@@ -23,4 +23,4 @@ jobs:
           
         - name: Run Images
           run:  docker run ${{matrix.images}}
-          timeout-minutes: 1
+          timeout-minutes: 2
