@@ -18,8 +18,9 @@ jobs:
         runs-on: ${{matrix.os}}
         steps:
         - name: Echo Docker Details
-          timeout-minutes: 2
+          timeout-minutes: 1
           run: docker info
           
         - name: Run Images
           run:  docker run ${{matrix.images}}
+          timeout-minutes: 1
