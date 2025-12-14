@@ -1,0 +1,33 @@
+name: Variables-Secrets-2
+on: workflow_dispatch
+  # push:
+  #   branches:
+  #     - main
+env:
+    CONTAINER_REGISTRY: docker.io
+    #DOCKER_USERNAME: dockerUsername
+    IMAGE_NAME: github-action-nginx
+jobs:
+    docker:        
+        runs-on: ubuntu-latest
+        steps:
+        - name: Docker build
+          run: echo docker build -t ${{env.CONTAINER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/IMAGE_NAME:latest
+          
+        - name: Docker login          
+          run: echo docker login --username=${{vars.DOCKER_USERNAME}} --password=${{secrets.DOCKER_PASS}}
+
+        - name: Docker publish
+          run: echo docker push ${{env.CONTAINER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME:latest
+
+    deploy:
+        needs: docker        
+        concurrency:
+          group: prod_deployment
+          cancel-in-progress: true
+        runs-on: ubuntu-latest
+        steps:
+        - name: Docker run
+          run: |
+            echo docker run -d -p 8080:80 ${{vars.CONTAINER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME:latest
+            sleep 600
