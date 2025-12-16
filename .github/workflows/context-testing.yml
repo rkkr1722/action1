@@ -28,4 +28,4 @@ jobs:
       - name: Dump SECRET context
         env:
           SECRET_CONTEXT: ${{ toJson(secrets) }}
-        run: echo "$MATRIX_CONTEXT"
+        run: echo "$SECRET_CONTEXT"
