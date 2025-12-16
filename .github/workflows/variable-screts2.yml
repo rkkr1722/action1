@@ -1,8 +1,21 @@
 name: Variables-Secrets-2
-on: workflow_dispatch
-  # push:
-  #   branches:
-  #     - main
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+
+  pull_request:
+    types:
+      - opened
+      - closed
+    branches:
+      - main
+      - 'releases/**'
+      - '!feature/*'
+    paths-ignore: README.md  
+  
 env:
     CONTAINER_REGISTRY: docker.io
     #DOCKER_USERNAME: dockerUsername
@@ -33,4 +46,4 @@ jobs:
           timeout-minutes: 1
           run: |
             echo docker run -d -p 8080:80 ${{vars.CONTAINER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/$IMAGE_NAME:latest
-            sleep 600
+            sleep 15s
